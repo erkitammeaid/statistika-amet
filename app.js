@@ -7,6 +7,11 @@ let occupations  = {
 
 }
 
+for(const key in occupations ) {
+    console.log(occupations[key].name)
+}
+
+const occupationSelect = document.getElementById('occupation-select')
 
 fetch ('http://andmebaas.stat.ee/sdmx-json/data/PA633/49+65+DBL148+DBL245+DBL310.3.1/all?startTime=2014&endTime=2014&dimensionAtObservation=allDimensions')
 .then(response =>{
@@ -14,15 +19,15 @@ fetch ('http://andmebaas.stat.ee/sdmx-json/data/PA633/49+65+DBL148+DBL245+DBL310
            
 
 })
-.then(Data => {
+.then(data => {
 
-    Data.structure.dimensions.observation[0].values.forEach((el, i) =>{
-        const occupations = (el.name.split(' ')[0])
-        const dataSetKey = i +':0:0:0:0'
+    data.structure.dimensions.observation[0].values.forEach((el, i) =>{
+        const occupationsKey = (el.name.split(' ')[0])
+        const dataSetKey = i + ':0:0:0'
         console.log(el.name.split(' ')[0])
         console.log(dataSetKey)
-        console.log(data.dataSets[0].observation[dataSetKey][0])
-        occupations[occupationsKey].rate = data.dataSets[0].observation
+        console.log(data.dataSets[0].observations[dataSetKey])
+        occupations[occupationsKey].rate = data.dataSets[0].observations[dataSetKey][0]
 
 
     })
